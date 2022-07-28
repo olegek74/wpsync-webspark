@@ -232,7 +232,7 @@ final class Wpsync_Webspark_Settings
                             '21' => __( '21', 'wpsync-webspark' ),
                             '24' => __( '24', 'wpsync-webspark' )
                         ),
-            'description' => __( 'Product update period.', 'wpsync-webspark' )
+            'description' => __( 'Product update period (hours).', 'wpsync-webspark' )
     );
         $authors = $this->get_authors();
         $options = [];
