@@ -229,18 +229,20 @@ final class Wpsync_Webspark {
                                 }
                             }
 
+ 			    if (!empty($attach_ids)) {
+                                $_attaches = $wpdb->get_results('SELECT p1.`ID` FROM `wp_posts` p1 JOIN `wp_posts` p2 ON (p2.`ID` = p1.`post_parent`) WHERE p1.`post_type` = "attachment" AND p2.`post_type` = "product" AND p1.`ID` NOT IN (' . implode(',', $attach_ids) . ')');
+                                foreach ($_attaches as $_attach) {
+                                    wp_delete_attachment($_attach->ID);
+                                }
+                            }
+
                             if (!empty($posts_ids)) {
                                 $_posts = $wpdb->get_results('SELECT `ID` FROM `wp_posts` WHERE `post_type` = "product" AND `ID` NOT IN (' . implode(',', $posts_ids) . ')');
                                 foreach ($_posts as $post) {
                                     wp_delete_post($post->ID);
                                 }
                             }
-                            if (!empty($attach_ids)) {
-                                $_attaches = $wpdb->get_results('SELECT p1.`ID` FROM `wp_posts` p1 JOIN `wp_posts` p2 ON (p2.`ID` = p1.`post_parent`) WHERE p1.`post_type` = "attachment" AND p2.`post_type` = "product" AND p1.`ID` NOT IN (' . implode(',', $attach_ids) . ')');
-                                foreach ($_attaches as $_attach) {
-                                    wp_delete_attachment($_attach->ID);
-                                }
-                            }
+                           
                             $option['last'] = date('Y-m-d H:i');
                             update_option('wpsync-webspark-standard-fields', $option);
                             die('end');
