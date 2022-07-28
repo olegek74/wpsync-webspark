@@ -1,0 +1,2 @@
+# wpsync-webspark
+ tz
